@@ -1,0 +1,23 @@
+services:
+  database:
+    image: mysql/mysql-server:8.0.32
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: community
+      MYSQL_USER: client
+      MYSQL_PASSWORD: somepassword
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
+    networks:
+      - net
+
+volumes:
+  mysql-data:
+
+networks:
+  net:
